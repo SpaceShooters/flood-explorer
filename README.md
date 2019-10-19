@@ -1,6 +1,18 @@
 # Flood explorer
-App that allows flood exploration.
+## Application
+Flood explorer is a visual tool that allows you to interact in real time with information about temperature, precipitation, etc., for decision making, comparison of information and visualization of historical data in both graphics and simulations.
 
+
+## Application Features
++ Statistics:
++ Generation of temperature graphs in real time with respect to the sea level of a specific location and established dates.
++ Generation of graphs of the total precipitable water with respect to a location and a range of dates in real time.
+
++ Simulations:
++ Simulation to obtain an estimate of precipitation according to a range of dates.
++ Simulation of cloud pressure in order to identify anomalies or patterns.
+
+Both statistics and simulations are in real time with data that will be consulted with the Nasa APIs, POWER API and GIBS API.
 ## Tools:
 + JavaScript
 + JQuery
