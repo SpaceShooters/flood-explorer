@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>Space Shooters</title>
+
+    <link rel='stylesheet' href='lib/ol.css' />
+    <link rel='stylesheet' href='css/map.css' />
+    <link rel='stylesheet' href='css/simulation.css' />
+
+    <script src='libs/ol.js'></script>
+    <script src='libs/simulationComponent.js'></script>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div id='day-panel'>
+        <div id='day-label'></div>
+        <input id="day-slider" type="range" min="-6" max="0" value="0">
+			<select name="select" onchange="setMod(this);">
+		  <option value="MODIS_Aqua_Cloud_Top_Pressure_Day">Presion Nubes</option> 
+		  <option value="AIRS_Precipitation_Day" selected>Precipitacion Estimada</option>		   
+		</select>
+		<button  onclick="clearLayers()" id="btnClear">Limpiar</button>
+		</div>
+		
+    </div>
+</body>
+
+</html>
