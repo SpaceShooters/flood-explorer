@@ -1,7 +1,24 @@
 # Flood explorer
 App that allows flood exploration.
 
-# Installing Node.js live-server
+## Tools:
++ JavaScript
++ JQuery
++ Node JS
++ Nodemailer
++ Open Layer
++ Live-server / Http-server
++ API Google Maps
++ Google chart tools 
++ Google Cloud Platform (GCP)
++ API Twitter
++ API Rest Countries
++ POWER API (NASA)
++ GIBS API (NASA)
++ IDE (VSCode)
+
+
+# Installing live-server (NodeJS)
 
 The NodeJS live-server package runs a temporary web server. It automatically reloads the page in your browser when any of these files change.
 
@@ -18,4 +35,4 @@ The NodeJS live-server package runs a temporary web server. It automatically rel
 + Open [localhost:8080](localhost:8080) in a browser or 127.0.0.1:8080 .
 
 
-## 
+## Node Server
