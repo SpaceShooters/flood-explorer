@@ -5,6 +5,7 @@ App that allows flood exploration.
 + JavaScript
 + JQuery
 + Node JS
++ Axios
 + Nodemailer
 + Open Layer
 + Live-server / Http-server
