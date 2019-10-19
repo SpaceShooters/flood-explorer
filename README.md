@@ -14,22 +14,22 @@ Flood explorer is a visual tool that allows you to interact in real time with in
 
 Both statistics and simulations are in real time with data that will be consulted with the Nasa APIs, POWER API and GIBS API.
 ## Tools:
-+ JavaScript
-+ JQuery
-+ Node JS
-+ Axios
-+ Express
-+ Nodemailer
-+ Open Layer
-+ Live-server / Http-server
-+ API Google Maps
-+ Google chart tools 
-+ Google Cloud Platform (GCP)
-+ API Twitter
-+ API Rest Countries
-+ POWER API (NASA)
-+ GIBS API (NASA)
-+ IDE (VSCode)
++ [JavaScript](https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript)
++ [JQuery](https://jquery.com/)
++ [Node JS](https://nodejs.org/es/docs/)
++ [Axios](https://github.com/axios/axios#axios)
++ [Express](https://expressjs.com/es/)
++ [Nodemailer](https://nodemailer.com/about/)
++ [Open Layer](http://openlayers.org)
++ [live-server](https://www.npmjs.com/package/live-server) / [http-server](https://www.npmjs.com/package/http-server)
++ [Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
++ [Google chart tools](https://developers.google.com/chart)
++ [Google Cloud Platform (GCP)](https://cloud.google.com/)
++ [API Twitter](https://developer.twitter.com/en/docs/basics/getting-started)
++ [API Rest Countries](https://github.com/apilayer/restcountries#rest-countries)
++ [POWER API - NASA](https://power.larc.nasa.gov/docs/v1/)
++ [GIBS API - NASA](https://wiki.earthdata.nasa.gov/display/GIBS)
++ [IDE (VSCode)](https://code.visualstudio.com/docs)
 
 
 # Installing live-server (NodeJS)
