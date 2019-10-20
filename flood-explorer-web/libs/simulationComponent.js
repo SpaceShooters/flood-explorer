@@ -59,7 +59,7 @@ window.onload = function () {
       maxResolution: 0.5625,
       projection: ol.proj.get('EPSG:4326'),
       extent: [-180, -90, 180, 90],
-      center: [0, 0],
+      center: [-90.2500000, 15.5000000],
       zoom: 2,
       maxZoom: 8
     }),

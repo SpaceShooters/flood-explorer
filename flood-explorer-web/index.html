@@ -107,8 +107,9 @@
                                           <label id='day-label'></label>
                                           <div class="col-md-4" style="padding-left: 0px;">
                                           <select name="select" class="form-control" onchange="setMod(this);">
-                                                <option value="MODIS_Aqua_Cloud_Top_Pressure_Day">Presion Nubes</option>
-                                                <option value="AIRS_Precipitation_Day" selected>Precipitacion Estimada</option>
+                                                <option value="AIRS_Precipitation_Day" >Precipitacion Estimada</option>
+                                                <option value="MODIS_Aqua_Cloud_Top_Pressure_Day" >Presion Nubes</option>
+                                                <option value="" selected>---Seleccione un modo---</option>
                                           </select>
                                           </div>
                                           <div class="col">
@@ -126,7 +127,7 @@
                                           </div>
                                     </div>
                               </form>
-                           <button id="test" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature(); setCoordenatesStorage();">Generar estadísticas</button>
+                           <button id="test" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature(); setCoordenatesStorage();" hidden>Generar estadísticas</button>
                         </div>
                         <!--div danilo-->
                         <div >
@@ -169,15 +170,15 @@
       let $sliderYear;
       $(document).ready(function() {
             $("#slider").slider({
-                animate: true,
-                value:1,
-                min: 1,
-                max: maxYear,
-                step: step,
-                slide: function(event, ui) {
-                    
-                }
-            });
+                  animate: true,
+                  value:1,
+                  min: 1,
+                  max: maxYear,
+                  step: step,
+                  slide: function(event, ui) {
+                      updateSlider(1,ui.value); //changed
+                  }
+              });
             
             $('#slider a').text(formatDateString($('#initDate').val()));
             $('#slider a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$('#slider a').text()}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
@@ -198,40 +199,42 @@
         var numberInterval = minYear;
 
         const timerInterval = () => {
-          $sliderYear.slider("value", numberInterval++);
+          
           let dayInter = (new Date($('#slider a').text()));
           
-          console.log(dayInter)
           console.log(numberInterval)
           dayInter.setDate(dayInter.getDate()+1);
           day = dayInter;
           console.log(day)
           update()
-          
+          $sliderYear.slider("value", numberInterval++);
           $('#slider a').text(formatDateString(dayInter.toISOString().slice(0,10)))
           updateSlider(1,formatDateString($('#slider a').text()))
-          if (numberInterval == maxYear){
+          if (numberInterval > maxYear){
             clearInterval(interval)
           }
         }
         let onProceedClick = () => {
             $('#slider a').text(formatDateString($('#initDate').val()));
             maxYear = Math.trunc(Math.abs(new Date(formatDateString($('#endDate').val())) - new Date(formatDateString($('#initDate').val())))/86400000)
-            numberInterval = 0;
+            numberInterval = 1;
             let dayInter = (new Date($('#slider a').text()));
             day = dayInter;
+            document.querySelector('#day-label').textContent = dayParameter();
+            update()
             $("#slider").slider({
-                animate: true,
-                value:1,
-                min: 1,
-                max: maxYear,
-                step: step,
-                slide: function(event, ui) {
-                    updateSlider(1,ui.value); //changed
-                }
-            });
-            $sliderYear.slider("value", numberInterval)
-          interval = setInterval(timerInterval,timeInterval)
+                  animate: true,
+                  value:0,
+                  min: 0,
+                  max: maxYear,
+                  step: step,
+                  slide: function(event, ui) {
+                      updateSlider(1,ui.value); //changed
+                  }
+              }).ready(() =>{
+                  interval = setInterval(timerInterval,timeInterval)
+              });
+          //interval = setInterval(timerInterval,timeInterval)
         }
       </script>
 </html>
