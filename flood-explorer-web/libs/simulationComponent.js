@@ -8,18 +8,18 @@
     return day.toISOString().split('T')[0];
   };
 
-  var map;
+  var mapGoogle;
   
   function update() {
     clearLayers();
-	map.addLayer(createLayer(actualLayer, '2km', 0.5));
+	mapGoogle.addLayer(createLayer(actualLayer, '2km', 0.5));
 	init();
-	var activeLayers = map.getLayers().getArray();
+	var activeLayers = mapGoogle.getLayers().getArray();
     document.querySelector('#day-label').textContent = dayParameter();
   };
 
   function clearLayers() {
-	map.setLayerGroup(new ol.layer.Group());
+	mapGoogle.setLayerGroup(new ol.layer.Group());
   };
 
   function createLayer(mode, tileMatrix, opacity) {
@@ -53,7 +53,7 @@
 
   
 window.onload = function () {
-	map = new ol.Map({
+	mapGoogle = new ol.Map({
     view: new ol.View({
       maxResolution: 0.5625,
       projection: ol.proj.get('EPSG:4326'),
@@ -85,12 +85,12 @@ window.onload = function () {
 	  actualLayer = selectValue;
 	  console.log(selectValue);
 	  clearLayers();
-	  map.addLayer(createLayer(selectValue, '2km', 0.5));
+	  mapGoogle.addLayer(createLayer(selectValue, '2km', 0.5));
 	  init();
     document.querySelector('#day-label').textContent = dayParameter();
   }
   
   function init(){
-	  map.addLayer(createLayer('Reference_Features', '250m', 1.0));
-	  map.addLayer(createLayer('Reference_Labels', '250m', 1.0));
+	  mapGoogle.addLayer(createLayer('Reference_Features', '250m', 1.0));
+	  mapGoogle.addLayer(createLayer('Reference_Labels', '250m', 1.0));
   }
