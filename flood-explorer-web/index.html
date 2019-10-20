@@ -1,127 +1,193 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Flood explorer</title>
-
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/logo.png">
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Space Shooters">
-    <link rel="apple-touch-icon-precomposed" href="images/logo.png">
-    <link rel="shortcut icon" href="images/logo.png">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-    #view-source {
-      position: fixed;
-      display: block;
-      right: 0;
-      bottom: 0;
-      margin-right: 40px;
-      margin-bottom: 40px;
-      z-index: 900;
-    }
-    </style>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>    
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="description" >
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+      <title>Flood explorer</title>
+      <meta name="mobile-web-app-capable" content="yes">
+      <link rel="icon" sizes="192x192" href="images/logo.png">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="apple-mobile-web-app-title" content="Space Shooters">
+      <link rel="apple-touch-icon-precomposed" href="images/logo.png">
+      <link rel="shortcut icon" href="images/logo.png">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="css/material-design-lite.min.css">
+      <link rel="stylesheet" href="css/styles.css">
+      <link href="./filters.css" rel="stylesheet"></link>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    
+      <style>
+         #view-source {
+         position: fixed;
+         display: block;
+         right: 0;
+         bottom: 0;
+         margin-right: 40px;
+         margin-bottom: 40px;
+         z-index: 900;
+         }
+      </style>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
       <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcARHUk4o65m_Oy_2_5yiUksDSQ2mtqmc&libraries=geometry"></script>
-
-  </head>
-  <body>
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-
-      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__header-row">
-          <div class="mdl-layout-spacer"></div>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">more_vert</i>
-          </button>
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">Miembros</li>
-            <li class="mdl-menu__item">Acerca de...</li>
-          </ul>
-        </div>
-      </header>
-
-      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <header class="demo-drawer-header">
-          <img src="images/logo.png" class="demo-avatar">
-          <div class="demo-avatar-dropdown">
-            <br><br><span><strong>Flood explorer</strong></span>
-            <div class="mdl-layout-spacer"></div>
-          </div>
-        </header>
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-
-          <div class="mdl-layout-spacer"></div>
-          <!--
-            SECTION COMPONENTS
-          -->
-        </nav>
+   </head>
+   <body>
+      <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+         <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <div class="mdl-layout__header-row">
+               <div class="mdl-layout-spacer"></div>
+               <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+               <i class="material-icons">more_vert</i>
+               </button>
+               <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+                  <li class="mdl-menu__item">Miembros</li>
+                  <li class="mdl-menu__item">Acerca de...</li>
+               </ul>
+            </div>
+         </header>
+         <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+            <header class="demo-drawer-header">
+               <img src="images/logo.png" class="demo-avatar">
+               <div class="demo-avatar-dropdown">
+                  <br><br><span><strong>Flood explorer</strong></span>
+                  <div class="mdl-layout-spacer"></div>
+               </div>
+            </header>
+            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+               <div class="mdl-layout-spacer">
+                  
+               </div>
+               <!--
+                  SECTION COMPONENTS
+                  -->
+                  
+            </nav>
+         </div>
+         <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid demo-content">
+               <div class = "mdl-tabs mdl-js-tabs">
+                  <div class = "mdl-tabs__tab-bar">
+                     <a href = "#statistics-panel" class = "mdl-tabs__tab is-active">Estadísticas</a>
+                     <!--<a href = "#simulator-panel" class = "mdl-tabs__tab">Simulaciones</a>-->
+                  </div>
+                  <div class = "mdl-tabs__panel is-active" id = "statistics-panel">
+                     <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+                        <!--GOOGLE MAPS-->
+                        
+                        <div>
+                           <form class="form-horizontal form-pricing form-filter" role="form">
+                                    <div class="mdl-textfield mdl-js-textfield">
+                                          <input class="mdl-textfield__input" type="date" id="initDate">
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield">
+                                          <input class="mdl-textfield__input" type="date" id="endDate">
+                                    </div>
+                                    <div class="price-slider">
+                                    <h4 class="great">Days</h4>
+                                    <span>Minimum 1 day</span>
+                                    <div class="col-sm-12">
+                                    <div id="slider"></div>
+                                    </div>
+                                    </div>
+                                    <div class="price-slider">
+                                    <h4 class="great">Ocean level alert</h4>
+                                    <span>Minimum 1 meter is required</span>
+                                    <div class="col-sm-12">
+                                    <div id="slider2"></div>
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                          <div class="col-sm-12 col-md-3 col-lg-3">
+                                                <button type="button" onclick="onProceedClick()" class="btn btn-primary btn-lg btn-block">Simulate<span class="glyphicon glyphicon-chevron-right pull-right" style="padding-right: 10px;"></span></button>
+                                          </div>
+                                    </div>
+                              </form>
+                           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature()">Generar estadísticas</button>
+                        </div>
+                        <br><br>
+                        <div id="map" style="height: 400px;"></div>
+                        <br><br>
+                        <div id="load" class="mdl-spinner mdl-js-spinner is-active"></div>
+                        <div id="chart_temperature" style="width: 100%; height: 400px;"></div>
+                        <div id="chart_precipitable" style="width: 100%; height: 400px;"></div>
+                        
+                     </div>
+                  </div>
+                  <div class = "mdl-tabs__panel" id = "simulator-panel">
+                        
+                  </div>
+               </div>
+            </div>
+         </main>
       </div>
-
-      <main class="mdl-layout__content mdl-color--grey-100">
-
-        <div class="mdl-grid demo-content">
-          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-
-              <!--GOOGLE MAPS-->
-              <div id="map" style="height: 400px;"></div>  
-              <br><br>
-              <div>
-              </select>                            
-              <form action="#">
-                <!--div class="mdl-textfield mdl-js-textfield">
-                  <select class="mdl-textfield__input" id="countrySelect" name="countrySelect" onchange="setCountry(event)">
-                </div-->
-
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="date" id="initDate">
-                </div>
-
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="date" id="endDate">
-                </div>                
-                
-              </form>              
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature()">
-                Generar estadísticas
-              </button>              
-              </div>
-              <br><br>
-              <div id="load" class="mdl-spinner mdl-js-spinner is-active"></div>
-              <div id="chart_div" style="width: 100%; height: 500px;"></div>
-
-              <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
-                <use xlink:href="#chart" />             
-              </svg>
-
-          </div>
-        </div>
-
-    
-
-      </main>
-
-    </div>
-
-  </body>
-      <script type="text/javascript" src="libs/mapComponent.js"></script>
-      <script type="text/javascript" src="libs/graphicsComponent.js"></script>  
+   </body>
+   <script type="text/javascript" src="libs/mapComponent.js"></script>
+   <script type="text/javascript" src="libs/graphicsComponent.js"></script> 
+   <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="./jQueryUiTouchPunch.js"></script> 
+   <script type="text/javascript">
+      const minYear = 1990, maxYear =2019;
+      const minLevel = 1, maxLevel = 500, step = 1;
+      const timeInterval = 2000; //in ms 
+      let $sliderYear;
+      $(document).ready(function() {
+            $("#slider").slider({
+                animate: true,
+                value:1,
+                min: minYear,
+                max: maxYear,
+                step: step,
+                slide: function(event, ui) {
+                    update(1,ui.value); //changed
+                }
+            });
+  
+            $("#slider2").slider({
+                animate: true,
+                value:0,
+                min: minLevel,
+                max: maxLevel,
+                step: step,
+                slide: function(event, ui) {
+                    update(2,ui.value); //changed
+                }
+            });
+            
+            update(1,minYear);
+            update(2,minLevel);
+            $sliderYear = $("#slider");
+        });
+  
+        //changed. now with parameter
+        function update(slider,val) {
+          //changed. Now, directly take value from ui.value. if not set (initial, will use current value.)
+          if(!val)
+          {
+            val = 0;
+          }
+          var $amount = slider == 1?val:$('#slider a').text();
+          var $duration = slider == 2?val:$('#slider2 a').text();
+  
+           $('#slider a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$amount}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
+           $('#slider2 a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$duration}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
+        }
+        var interval;
+        const timerInterval = () => {
+          $sliderYear.slider("value", $sliderYear.slider("value")+1);
+          update(1, $sliderYear.slider("value"))
+          if ($sliderYear.slider("value") == maxYear){
+            clearInterval(interval)
+          }
+        }
+        let onProceedClick = () => {
+          interval = setInterval(timerInterval,timeInterval)
+        }
+      </script>
 </html>
-
-
