@@ -32,7 +32,7 @@ Both statistics and simulations are in real time with data that will be consulte
 + [IDE (VSCode)](https://code.visualstudio.com/docs)
 
 
-# Installing live-server (NodeJS)
+# Installing live-server/http-server (NodeJS)
 
 The NodeJS live-server package runs a temporary web server. It automatically reloads the page in your browser when any of these files change.
 
