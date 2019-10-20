@@ -19,7 +19,6 @@
       <link rel="stylesheet" href="css/styles.css">
       <link href="./filters.css" rel="stylesheet"></link>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    
       <style>
          #view-source {
          position: fixed;
@@ -37,6 +36,14 @@
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcARHUk4o65m_Oy_2_5yiUksDSQ2mtqmc&libraries=geometry"></script>
+      <link rel='stylesheet' href='css/ol.css' />
+      <link rel='stylesheet' href='css/map.css' />
+      <link rel='stylesheet' href='css/simulation.css' />
+
+      <script src='libs/ol.js'></script>
+      <script src='libs/simulationComponent.js'></script>
+      <script src='libs/dom-to-image.min.js'></script>
+      <script src='libs/html2canvas.js'></script>
    </head>
    <body>
       <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -96,23 +103,38 @@
                                     <div id="slider"></div>
                                     </div>
                                     </div>
+                                    <div class="form-row"> 
+                                          <label id='day-label'></label>
+                                          <div class="col-md-4" style="padding-left: 0px;">
+                                          <select name="select" class="form-control" onchange="setMod(this);">
+                                                <option value="MODIS_Aqua_Cloud_Top_Pressure_Day">Presion Nubes</option>
+                                                <option value="AIRS_Precipitation_Day" selected>Precipitacion Estimada</option>
+                                          </select>
+                                          </div>
+                                          <div class="col">
+                                          <button onclick="clearLayers()" type="button" class="btn btn-secondary" id="btnClear">Limpiar</button>
+                                          <button onclick="exportMap()" type="button" class="btn btn-secondary" id="export-png">Exportar</button>
+                                          </div>
+                                    </div>
                                     <div class="price-slider">
-                                    <h4 class="great">Ocean level alert</h4>
-                                    <span>Minimum 1 meter is required</span>
-                                    <div class="col-sm-12">
-                                    <div id="slider2"></div>
+                                          <div id="slider2"></div>
                                     </div>
-                                    </div>
+                                    
                                     <div class="form-group">
                                           <div class="col-sm-12 col-md-3 col-lg-3">
                                                 <button type="button" onclick="onProceedClick()" class="btn btn-primary btn-lg btn-block">Simulate<span class="glyphicon glyphicon-chevron-right pull-right" style="padding-right: 10px;"></span></button>
                                           </div>
                                     </div>
                               </form>
-                           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature()">Generar estadísticas</button>
+                           <button id="test" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="getTemperature(); setCoordenatesStorage();">Generar estadísticas</button>
                         </div>
+                        <!--div danilo-->
+                        <div >
+                              <div id='map' style="height: 400px; width: 100%;"></div>
+                        </div>
+                        <!--div danilo-->
                         <br><br>
-                        <div id="map" style="height: 400px;"></div>
+                        <div id="map2" style="height: 400px;"></div>
                         <br><br>
                         <div id="load" class="mdl-spinner mdl-js-spinner is-active"></div>
                         <div id="chart_temperature" style="width: 100%; height: 400px;"></div>
@@ -133,60 +155,82 @@
    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
     <script src="./jQueryUiTouchPunch.js"></script> 
    <script type="text/javascript">
-      const minYear = 1990, maxYear =2019;
+      const formatDateString = (date) => {
+              let parts = date.split('-')
+              return `${parts[0]}/${parts[1]}/${parts[2]}`
+        }
+      $('#initDate').val(new Date().toISOString().slice(0,10))
+      $('#endDate').val(new Date().toISOString().slice(0,10))
+   
+      let minYear = 0;
+      let maxYear = Math.trunc(Math.abs(new Date(formatDateString($('#endDate').val())) - new Date(formatDateString($('#initDate').val())))/86400000)
       const minLevel = 1, maxLevel = 500, step = 1;
-      const timeInterval = 2000; //in ms 
+      const timeInterval = 3000; //in ms 
       let $sliderYear;
       $(document).ready(function() {
             $("#slider").slider({
                 animate: true,
                 value:1,
-                min: minYear,
+                min: 1,
                 max: maxYear,
                 step: step,
                 slide: function(event, ui) {
-                    update(1,ui.value); //changed
-                }
-            });
-  
-            $("#slider2").slider({
-                animate: true,
-                value:0,
-                min: minLevel,
-                max: maxLevel,
-                step: step,
-                slide: function(event, ui) {
-                    update(2,ui.value); //changed
+                    
                 }
             });
             
-            update(1,minYear);
-            update(2,minLevel);
+            $('#slider a').text(formatDateString($('#initDate').val()));
+            $('#slider a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$('#slider a').text()}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
             $sliderYear = $("#slider");
         });
-  
+        
         //changed. now with parameter
-        function update(slider,val) {
+        function updateSlider(slider,val) {
           //changed. Now, directly take value from ui.value. if not set (initial, will use current value.)
-          if(!val)
-          {
-            val = 0;
-          }
-          var $amount = slider == 1?val:$('#slider a').text();
-          var $duration = slider == 2?val:$('#slider2 a').text();
+          
+          var $amount = slider == 1?$('#slider a').text():$('#slider a').text();
+          var $duration = slider == 2?$('#slider2 a').text():$('#slider2 a').text();
   
            $('#slider a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$amount}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
            $('#slider2 a').html(`<label><span class="glyphicon glyphicon-chevron-left"></span>${$duration}<span class="glyphicon glyphicon-chevron-right"></span></label>`);
         }
         var interval;
+        var numberInterval = minYear;
+
         const timerInterval = () => {
-          $sliderYear.slider("value", $sliderYear.slider("value")+1);
-          update(1, $sliderYear.slider("value"))
-          if ($sliderYear.slider("value") == maxYear){
+          $sliderYear.slider("value", numberInterval++);
+          let dayInter = (new Date($('#slider a').text()));
+          
+          console.log(dayInter)
+          console.log(numberInterval)
+          dayInter.setDate(dayInter.getDate()+1);
+          day = dayInter;
+          console.log(day)
+          update()
+          
+          $('#slider a').text(formatDateString(dayInter.toISOString().slice(0,10)))
+          updateSlider(1,formatDateString($('#slider a').text()))
+          if (numberInterval == maxYear){
             clearInterval(interval)
           }
         }
         let onProceedClick = () => {
+            $('#slider a').text(formatDateString($('#initDate').val()));
+            maxYear = Math.trunc(Math.abs(new Date(formatDateString($('#endDate').val())) - new Date(formatDateString($('#initDate').val())))/86400000)
+            numberInterval = 0;
+            let dayInter = (new Date($('#slider a').text()));
+            day = dayInter;
+            $("#slider").slider({
+                animate: true,
+                value:1,
+                min: 1,
+                max: maxYear,
+                step: step,
+                slide: function(event, ui) {
+                    updateSlider(1,ui.value); //changed
+                }
+            });
+            $sliderYear.slider("value", numberInterval)
           interval = setInterval(timerInterval,timeInterval)
         }
       </script>

@@ -32,7 +32,7 @@ let headboard = () =>{
     zoom: 5,
     mapTypeId: google.maps.MapTypeId.HYBRID
   };
-  map = new google.maps.Map(document.getElementById("map"), properties);
+  map = new google.maps.Map(document.getElementById("map2"), properties);
 }
 
 
@@ -45,7 +45,7 @@ let initialize = () => {
     mapTypeId: google.maps.MapTypeId.HYBRID
   };
 
-  map = new google.maps.Map(document.getElementById("map"), properties);
+  map = new google.maps.Map(document.getElementById("map2"), properties);
   directionsDisplay.setMap(map);
 
   var marker = new google.maps.Marker({
@@ -79,6 +79,25 @@ let setCoordenates = (location) => {
   loadLocation(map);
 }
 
+//Set coordenates location
+let setCoordenatesStorage = () => {
+  headboard();
+  map.setZoom(9);
+  directionsDisplay.setMap(map);
+  
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("long")),
+    map: map,
+    title: 'Flood explorer'
+  });
+  map.setCenter( new google.maps.LatLng(sessionStorage.getItem("lat"), sessionStorage.getItem("long")));
+  directionsDisplay.setMap(map);
+  marker.setMap(map);
+  sessionStorage.setItem("lat", map.center.lat());
+  sessionStorage.setItem("long", map.center.lng());
+  sessionStorage.removeItem("country");  
+  loadLocation(map);
+}
 
 //Load selected location
 let loadLocation = (map)=>{

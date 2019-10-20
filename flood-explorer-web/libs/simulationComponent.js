@@ -78,7 +78,10 @@ window.onload = function () {
   mapGoogle.addLayer(vectorLayer);
 
   mapGoogle.on('singleclick', function (evt) {
-    sessionStorage.setItem('coordinate', evt.coordinate);
+    let cor = evt.coordinate;
+    sessionStorage.setItem('lat', evt.coordinate[1]);
+    sessionStorage.setItem('long', evt.coordinate[0]);        
+    sessionStorage.setItem('coordinate', cor);
     exportMap();
   });
   document.querySelector('#day-label').textContent = dayParameter();
@@ -99,6 +102,8 @@ function exportMap() {
   domtoimage.toJpeg(node, { quality: 0.95 })
     .then(function (dataUrl) {
       sessionStorage.setItem('map', dataUrl);  
+      document.getElementById("test").click();
+
     });
 }
 
