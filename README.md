@@ -2,6 +2,8 @@
 ## Application
 Flood explorer is a visual tool that allows you to interact in real time with information about temperature, precipitation, etc., for decision making, comparison of information and visualization of historical data in both graphics and simulations.
 
+## Nasa event
++ [SpaceAppChallenge - Flood explorer](https://2019.spaceappschallenge.org/challenges/earths-oceans/rising-water/teams/space-shooters/project)
 
 ## Application Features
 + Statistics:
@@ -30,6 +32,7 @@ Both statistics and simulations are in real time with data that will be consulte
 + [POWER API - NASA](https://power.larc.nasa.gov/docs/v1/)
 + [GIBS API - NASA](https://wiki.earthdata.nasa.gov/display/GIBS)
 + [IDE (VSCode)](https://code.visualstudio.com/docs)
++ [Docker](https://www.docker.com/get-started)
 
 
 # Installing live-server/http-server (NodeJS)
