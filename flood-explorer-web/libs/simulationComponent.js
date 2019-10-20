@@ -75,9 +75,9 @@ window.onload = function () {
   });
 
 
-  map.addLayer(vectorLayer);
+  mapGoogle.addLayer(vectorLayer);
 
-  map.on('singleclick', function (evt) {
+  mapGoogle.on('singleclick', function (evt) {
     sessionStorage.setItem('coordinate', evt.coordinate);
     exportMap();
   });
