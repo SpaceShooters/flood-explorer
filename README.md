@@ -30,6 +30,7 @@ Both statistics and simulations are in real time with data that will be consulte
 + [POWER API - NASA](https://power.larc.nasa.gov/docs/v1/)
 + [GIBS API - NASA](https://wiki.earthdata.nasa.gov/display/GIBS)
 + [IDE (VSCode)](https://code.visualstudio.com/docs)
++ [Docker](https://www.docker.com/get-started)
 
 
 # Installing live-server/http-server (NodeJS)
