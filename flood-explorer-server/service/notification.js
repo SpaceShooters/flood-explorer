@@ -4,8 +4,8 @@ const app = express();
 let notificationComponent = require('../component/notificationComponent.js');
 
 app.post('/notification', function (req, res) {
-
-    notificationComponent.sendNotifications(req.body.content, req.body.image);
+console.log('Request: ', req.body);
+    notificationComponent.sendNotifications(req.body.mailTo, req.body.content, req.body.image);
 
     res.json({
         ok: true
@@ -14,7 +14,7 @@ app.post('/notification', function (req, res) {
 
 app.post('/notification/mail', function (req, res) {
 
-    notificationComponent.mailNotifications(req.body.content, req.body.image);
+    notificationComponent.mailNotifications(req.body.mailTo, req.body.content, req.body.image);
 
     res.json({
         ok: true
@@ -31,3 +31,4 @@ app.post('/notification/twitter', function (req, res) {
 });
 
 module.exports = app;
+

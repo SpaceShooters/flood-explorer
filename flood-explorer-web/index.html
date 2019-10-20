@@ -140,7 +140,19 @@
                         <div id="load" class="mdl-spinner mdl-js-spinner is-active"></div>
                         <div id="chart_temperature" style="width: 100%; height: 400px;"></div>
                         <div id="chart_precipitable" style="width: 100%; height: 400px;"></div>
-                        
+                        <div class="form-group" style="align-content: flex-end">
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                          <input type="email" class="form-control" id="mailNotification"
+                                          placeholder="Email">                                          
+                                    </div>
+                              <div class="col-sm-12 col-md-3 col-lg-3">
+                                    <button onclick="sendNotification()" id="sendNotificationBtn"
+                                    class="btn btn-warning btn-md btn-block">Enviar notificacion
+                                    <span class="glyphicon glyphicon-send" style="padding-right: 8px;"></span>
+                                    </button>
+                              </div>
+                        </div>
+
                      </div>
                   </div>
                   <div class = "mdl-tabs__panel" id = "simulator-panel">
@@ -236,5 +248,46 @@
               });
           //interval = setInterval(timerInterval,timeInterval)
         }
+
+        let sendNotification = () => {
+            let map = sessionStorage.getItem('map');
+            let latitud = sessionStorage.getItem('lat');
+            let longitud = sessionStorage.getItem('long');
+            if(!map){
+              return;
+            }
+
+            let mailTo = $('#mailNotification').val();
+             
+            if(!mailTo){
+              return;
+            }
+
+            let bodyRequest = {
+              mailTo: mailTo,
+              image: map.split('base64,')[1],
+              content: "Alerta de niveles peligrosos del nivel de agua en el punto\nlatitud: "+latitud
+                       +"\n longtud: "+longitud
+            };
+
+            var settings = {
+              "async": true,
+              "crossDomain": true,
+              "url": "http://localhost:3000/notification",
+              "method": "POST",
+              "headers": {
+                  "Content-Type": "application/json",
+                  "cache-control": "no-cache",
+            },
+            "processData": false,
+            "data": JSON.stringify(bodyRequest)
+            }
+
+              $.ajax(settings).done(function (response) {
+                  console.log(response);
+            });
+
+
+      }
       </script>
 </html>

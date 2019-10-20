@@ -26,7 +26,7 @@ var transporter = nodemailer.createTransport({
 
 function postTweetWithImage(textContent, image) {
 
-  client.post("media/upload", { media: image }, function (error, media, response) {
+  client.post("media/upload", { media_data: image }, function (error, media, response) {
     if (error) {
       console.log(error)
     } else {
@@ -74,9 +74,9 @@ function sendMail(mailTo, content, image) {
   if (image) {
     mailOptions.attachments = [{
       filename: 'map.png',
-      content: fs.createReadStream('C:\\Users\\user\\Pictures\\12043026_495781920601088_2672179469232696445_n.png'),
-      cid: 'map@cid'/*,
-      encoding: 'base64'*/
+      content: image,
+      cid: 'map@cid',
+      encoding: 'base64'
     }];
   }
 
@@ -100,7 +100,7 @@ function sendNotifications(mailTo, textContent, image) {
 }
 
 function sendTwitterNotification(textContent, image) {
-  postTweetWithImage(textContent, fs.createReadStream('C:\\Users\\user\\Pictures\\12043026_495781920601088_2672179469232696445_n.png'));
+  postTweetWithImage(textContent, image);
 }
 
 function sendMailNotification(mailTo, textContent, image) {
