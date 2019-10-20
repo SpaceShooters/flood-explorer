@@ -54,7 +54,7 @@ The NodeJS live-server package runs a temporary web server. It automatically rel
 
 ## Node Server
 ## Environment variable
-+ In dockerfile flood-explorer/flood-explorer-server configure this environment variable and replace ${value} with your credentials. CONSUMER_* and ACCESS_* are tokens an keys of twitter.
++ In dockerfile `flood-explorer/flood-explorer-server` configure this environment variable and replace ${value} with your credentials. CONSUMER_* and ACCESS_* are tokens an keys of twitter.
 
 
 + EMAIL_APP=${value}
