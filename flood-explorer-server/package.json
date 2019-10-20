@@ -1,0 +1,18 @@
+{
+  "name": "flood-explorer-server",
+  "version": "1.0.0",
+  "description": "modulo para el manejo de modificaciones ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "space shooters team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "machinepack-email": "^0.1.3",
+    "nodemailer": "^6.3.1",
+    "twitter": "^1.7.1"
+  }
+}
